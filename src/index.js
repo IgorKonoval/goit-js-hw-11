@@ -155,6 +155,7 @@ function onLoadMore() {
       const endPage = Math.ceil(result.totalHits / perPage);
       if (page <= endPage) {
         createMarkup(result.hits);
+        new SimpleLightbox('.gallery a').refresh();
       } else {
         Notiflix.Notify.failure(
           "We're sorry, but you've reached the end of search results."
