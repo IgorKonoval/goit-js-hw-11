@@ -80,6 +80,7 @@ function onFormSearch(evt) {
   searchQuery = evt.target.searchQuery.value.trim();
   if (searchQuery === '') {
     Notiflix.Notify.failure('Error! The search string must not be empty.');
+    loader.style.display = 'block';
     return;
   }
 
