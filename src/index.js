@@ -93,17 +93,17 @@ function createMarkup(img) {
 function onLoadMore() {
   page += 1;
 
-  if (page < perPage) {
-    fetchImg(searchQuery, page, perPage)
-      .then(result => {
-        const markup = createMarkup(result.hits);
-        form.insertAdjacentHTML('beforeend', markup);
-      })
-      .catch(err => console.log(err));
-  } else {
-    Notiflix.Notify.failure(
-      "We're sorry, but you've reached the end of search results."
-    );
-    loader.style.display = 'none';
-  }
+  fetchImg(searchQuery, page, perPage)
+    .then(result => {
+      const endPage = Math.ceil(result.totalHits / perPage);
+      if (page <= endPage) {
+        createMarkup(result.hits);
+      } else {
+        Notiflix.Notify.failure(
+          "We're sorry, but you've reached the end of search results."
+        );
+        loader.style.display = 'none';
+      }
+    })
+    .catch(err => console.log(err));
 }
